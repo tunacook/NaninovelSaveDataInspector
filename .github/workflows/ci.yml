@@ -1,0 +1,18 @@
+name: Run CI
+on:  [ pull_request ]
+
+jobs:
+  meta-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**', 'Library/**') }}
+          restore-keys: |
+            Library-
+
+      - uses: DeNA/unity-meta-check@v4
