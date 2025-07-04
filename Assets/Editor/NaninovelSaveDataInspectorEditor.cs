@@ -19,6 +19,11 @@ namespace NaninovelSaveDataInspectorEditor
             EditorUtility.RevealInFinder(Path);
         }
 
+        // TODO: 色々Naninovel固有のコマンド実装する
+        // - ゲームセーブデータのみ(GlobalSaveを除外する)
+        // - グローバルセーブデータのみ
+        // - 設定データのみ
+
         [MenuItem(Category + "ClearAllSaveData", priority = CategoryPriority + 1)]
         public static void ClearAllSaveData()
         {
