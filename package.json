@@ -1,0 +1,11 @@
+{
+  "name": "com.tunacook.naninovelsavedatainspector",
+  "displayName": "NaninovelSaveDataInspector",
+  "version": "0.1.0",
+  "unity": "6000.0",
+  "description": "description.",
+  "author": {
+    "name": "tunacook",
+    "url": "https://github.com/tunacook"
+  }
+}
