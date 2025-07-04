@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,12 +11,34 @@ namespace NaninovelSaveDataInspectorEditor
         private const string Category = "Tools/tunacook/NaninovelSaveDataInspector/";
         private static readonly string Path = Application.persistentDataPath;
 
-        [MenuItem(Category + "SaveData内容を表示", priority = CategoryPriority)]
+        [MenuItem(Category + "ShowSaveData", priority = CategoryPriority)]
         public static void FindSaveDataPaths()
         {
             Debug.Log($"[PersistentData] Path: {Path}");
             // パスを選択状態にしてフォーカス（macOS/Windows 両対応）
             EditorUtility.RevealInFinder(Path);
         }
+
+        [MenuItem(Category + "ClearAllSaveData", priority = CategoryPriority + 1)]
+        public static void ClearAllSaveData()
+        {
+            if (Directory.Exists(Path))
+            {
+                try
+                {
+                    Directory.Delete(Path, true);
+                    Debug.Log($"[PersistentData] 削除成功: {Path}");
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogError($"[PersistentData] 削除失敗: {e.Message}");
+                }
+            }
+            else
+            {
+                Debug.Log($"[PersistentData] 存在しません: {Path}");
+            }
+        }
     }
 }
+#endif
