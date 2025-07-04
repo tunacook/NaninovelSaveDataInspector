@@ -105,3 +105,4 @@ InitTestScene*.unity*
 .idea/**/tasks.xml
 
 *Thumbs.db*
+*.DS_Store*
