@@ -7,7 +7,9 @@ Naninovelでビルドしたセーブデータが格納されている場所に�
 ## Usage
 Window->`Package Manager`->`Install package from git URL` で開く
 
-git+ssh://git@github.com/tunacook/NaninovelSaveDataInspector.git を指定
+`git+ssh://git@github.com/tunacook/NaninovelSaveDataInspector.git` を指定
+
+![](docs/install.png)
 
 -----
 
