@@ -44,6 +44,15 @@ namespace NaninovelSaveDataInspectorEditor
                 Debug.Log($"[PersistentData] 存在しません: {Path}");
             }
         }
+
+
+        [MenuItem(Category + "ShowEditorSaveData", priority = CategoryPriority + 2)]
+        public static void FindEditorSaveDataPaths()
+        {
+            string editorSavePath = System.IO.Path.Combine(Application.dataPath, "NaninovelData/.nani/Transient/Saves");
+            Debug.Log($"[EditorSaveData] Path: {editorSavePath}");
+            EditorUtility.RevealInFinder(editorSavePath);
+        }
     }
 }
 #endif
