@@ -27,3 +27,7 @@ Finderでビルドごとのセーブデータが入っている場所を開く
 ### ClearAllSaveData
 
 ShowSaveDataにあるディレクトリを全て削除する
+
+### ShowEditorSaveData
+
+UnityEditorでのセーブデータが入っている場所をFinderで開く
