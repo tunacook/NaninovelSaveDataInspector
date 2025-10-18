@@ -53,6 +53,70 @@ namespace NaninovelSaveDataInspectorEditor
             Debug.Log($"[EditorSaveData] Path: {editorSavePath}");
             EditorUtility.RevealInFinder(editorSavePath);
         }
+
+        [MenuItem(Category + "ShowCurrentProductPlayerLog", priority = CategoryPriority + 3)]
+        public static void FindCurrentProductPlayerLog()
+        {
+            string playerLogPath = GetPlayerLogPath();
+
+            if (!string.IsNullOrEmpty(playerLogPath) && File.Exists(playerLogPath))
+            {
+                Debug.Log($"[PlayerLog] Path: {playerLogPath}");
+                // ファイルを選択状態でFinderを開く（macOS/Windows 両対応）
+                EditorUtility.RevealInFinder(playerLogPath);
+            }
+            else
+            {
+                Debug.LogWarning($"[PlayerLog] ファイルが見つかりません: {playerLogPath}");
+            }
+        }
+
+        [MenuItem(Category + "ShowPlayerLogDirectory", priority = CategoryPriority + 4)]
+        public static void FindPlayerLogDirectory()
+        {
+            string playerLogDir = GetPlayerLogDirectory();
+
+            if (!string.IsNullOrEmpty(playerLogDir) && Directory.Exists(playerLogDir))
+            {
+                Debug.Log($"[PlayerLogDirectory] Path: {playerLogDir}");
+                // ディレクトリを選択状態でFinderを開く（macOS/Windows 両対応）
+                EditorUtility.RevealInFinder(playerLogDir);
+            }
+            else
+            {
+                Debug.LogWarning($"[PlayerLogDirectory] ディレクトリが見つかりません: {playerLogDir}");
+            }
+        }
+
+        private static string GetPlayerLogPath()
+        {
+        #if UNITY_EDITOR_OSX
+            // macOS: ~/Library/Logs/(CompanyName)/(ProductName)/Player.log
+            string logsPath = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "Library/Logs");
+            return System.IO.Path.Combine(logsPath, PlayerSettings.companyName, PlayerSettings.productName, "Player.log");
+        #elif UNITY_EDITOR_WIN
+            // Windows: %USERPROFILE%\AppData\LocalLow\(CompanyName)\(ProductName)\Player.log
+            string localLowPath = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile), "AppData", "LocalLow");
+            return System.IO.Path.Combine(localLowPath, PlayerSettings.companyName, PlayerSettings.productName, "Player.log");
+        #else
+            return string.Empty;
+        #endif
+        }
+
+        private static string GetPlayerLogDirectory()
+        {
+        #if UNITY_EDITOR_OSX
+            // macOS: ~/Library/Logs/(CompanyName)/
+            string logsPath = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "Library/Logs");
+            return System.IO.Path.Combine(logsPath, PlayerSettings.companyName);
+        #elif UNITY_EDITOR_WIN
+            // Windows: %USERPROFILE%\AppData\LocalLow\(CompanyName)/
+            string localLowPath = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile), "AppData", "LocalLow");
+            return System.IO.Path.Combine(localLowPath, PlayerSettings.companyName);
+        #else
+            return string.Empty;
+        #endif
+        }
     }
 }
 #endif
