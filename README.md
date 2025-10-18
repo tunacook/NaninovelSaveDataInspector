@@ -31,3 +31,11 @@ ShowSaveDataにあるディレクトリを全て削除する
 ### ShowEditorSaveData
 
 UnityEditorでのセーブデータが入っている場所をFinderで開く
+
+### ShowCurrentProductPlayerLog
+
+ビルドのPlayerログが入っている場所をFinderで開く
+
+### ShowPlayerLogDirectory
+
+ビルドのPlayerログが入っている場所の一つ上のディレクトリをFinderで開く
