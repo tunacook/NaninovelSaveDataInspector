@@ -88,10 +88,11 @@ namespace NaninovelSaveDataInspectorEditor
             }
         }
 
+    #if UNITY_EDITOR_OSX
+        // macOS 以外ではメニュー項目自体を出さない
         [MenuItem(Category + "ShowApplicationSupportSaveData", priority = CategoryPriority + 5)]
         public static void FindApplicationSupportSaveData()
         {
-        #if UNITY_EDITOR_OSX
             var candidates = GetApplicationSupportSaveDataCandidates();
             foreach (var candidate in candidates)
             {
@@ -103,9 +104,6 @@ namespace NaninovelSaveDataInspectorEditor
 
             Debug.LogWarning("[ApplicationSupportSaveData] セーブデータのディレクトリが見つかりません。探索した場所:\n" +
                              string.Join("\n", candidates));
-        #else
-            Debug.LogWarning("[ApplicationSupportSaveData] macOS のみ対応しています");
-        #endif
         }
 
         /// <summary>
@@ -127,6 +125,7 @@ namespace NaninovelSaveDataInspectorEditor
                 System.IO.Path.Combine(appSupportPath, bundleId, "Saves"),
             };
         }
+    #endif
 
         private static string GetPlayerLogPath()
         {

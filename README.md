@@ -42,7 +42,7 @@ UnityEditorでのセーブデータが入っている場所をFinderで開く
 
 ### ShowApplicationSupportSaveData
 
-macOS で `~/Library/Application Support` 以下にある Naninovel のセーブデータ（`Saves` ディレクトリ）をFinderで開く
+macOS で `~/Library/Application Support` 以下にある Naninovel のセーブデータ（`Saves` ディレクトリ）をFinderで開く（macOS 以外のエディタではメニューに表示されない）
 
 セーブデータは applicationIdentifier（Bundle Identifier）ごとのディレクトリに作られる。以下の順に探索し、最初に見つかった場所を開く（見つからない場合は探索した場所をConsoleに出力）
 
