@@ -88,6 +88,46 @@ namespace NaninovelSaveDataInspectorEditor
             }
         }
 
+        [MenuItem(Category + "ShowApplicationSupportSaveData", priority = CategoryPriority + 5)]
+        public static void FindApplicationSupportSaveData()
+        {
+        #if UNITY_EDITOR_OSX
+            var candidates = GetApplicationSupportSaveDataCandidates();
+            foreach (var candidate in candidates)
+            {
+                if (!Directory.Exists(candidate)) continue;
+                Debug.Log($"[ApplicationSupportSaveData] Path: {candidate}");
+                EditorUtility.RevealInFinder(candidate);
+                return;
+            }
+
+            Debug.LogWarning("[ApplicationSupportSaveData] セーブデータのディレクトリが見つかりません。探索した場所:\n" +
+                             string.Join("\n", candidates));
+        #else
+            Debug.LogWarning("[ApplicationSupportSaveData] macOS のみ対応しています");
+        #endif
+        }
+
+        /// <summary>
+        /// ~/Library/Application Support 以下で Naninovel のセーブデータが置かれうる場所の候補を返す
+        /// </summary>
+        private static string[] GetApplicationSupportSaveDataCandidates()
+        {
+            string appSupportPath = System.IO.Path.Combine(
+                System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal),
+                "Library", "Application Support");
+            string bundleId = PlayerSettings.GetApplicationIdentifier(
+                UnityEditor.Build.NamedBuildTarget.Standalone);
+
+            return new[]
+            {
+                // ~/Library/Application Support/(BundleIdentifier)/NaninovelData/Saves
+                System.IO.Path.Combine(appSupportPath, bundleId, "NaninovelData", "Saves"),
+                // ~/Library/Application Support/(BundleIdentifier)/Saves
+                System.IO.Path.Combine(appSupportPath, bundleId, "Saves"),
+            };
+        }
+
         private static string GetPlayerLogPath()
         {
         #if UNITY_EDITOR_OSX
